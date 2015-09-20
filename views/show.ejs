@@ -1,0 +1,18 @@
+<html>
+<head>
+	<title>Welcome to Quoting Dojo</title>
+</head>
+<body>
+	<h1>Welcome to Quoting Wall</h1>
+	<table>
+	<%  for(var idx in infos){  %>
+	<%  console.log(infos[idx]); %>
+		<tr>
+			<td><%= infos[idx].name %></td>
+			<td><%= infos[idx].quote %></td>
+		</tr>
+	<%  }%>
+	</table>
+	<a href="/">Go Back</a>
+</body>
+</html>

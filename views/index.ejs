@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>Quoting Dojo</title>
+</head>
+<body>
+	<h1>Welcome to Quoting Dojo</h1>
+	<div class="error" style="color:red">
+		<%  if(typeof err_msg != "undefined") { %>
+			<%=  err_msg %>
+		<% } %>
+	</div>
+	<form action="/quotes" method="post">
+		<table>
+			<tr>
+				<td>Your Name:</td>
+				<td><input type="text" name="name"></td>
+			</tr>
+			<tr>
+				<td>Quote:</td>
+				<td><textarea name="quote"></textarea></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Submit"></td>
+				<td><a href="/show">Skip</a></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+</html>
