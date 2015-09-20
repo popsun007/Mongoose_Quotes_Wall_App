@@ -6,10 +6,16 @@
 	<h1>Welcome to Quoting Wall</h1>
 	<table>
 	<%  for(var idx in infos){  %>
-	<%  console.log(infos[idx]); %>
 		<tr>
-			<td><%= infos[idx].name %></td>
-			<td><%= infos[idx].quote %></td>
+			<td><%= infos[idx].name + ": "%></td>
+			<td><%= '"' + infos[idx].quote + '"' %></td>
+			<td>
+				<form action="/like" method="post">
+					<input type="hidden" name="id" value="<%= infos[idx]._id %>">
+					<input type="submit" value="Like">
+				</form>
+			</td>
+			<td><%=  infos[idx].like %></td>
 		</tr>
 	<%  }%>
 	</table>

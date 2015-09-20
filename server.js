@@ -7,7 +7,8 @@ var app = express();
 var bodyParser = require("body-parser");
 var quotingSchema = new mongoose.Schema({
 	name: String,
-	quote: String
+	quote: String,
+	like: Number
 })
 var Quote = mongoose.model("quotes", quotingSchema);
 app.use(bodyParser.urlencoded({extended: true}));
@@ -19,16 +20,6 @@ app.set('view engine', 'ejs');
 // root route to render the index.ejs view
 app.get('/', function(req, res) {
 
- 	// User.find({}, function(err, users)
- 	// {
- 	// 	if(err)
- 	// 	{
- 	// 		console.log("Show users' infos FAIL!")
- 	// 	}
- 	// 	else
- 	// 	{
- 	// 	}
- 	// })
 	res.render("index");
 })
 app.get("/show", function(req, res)
@@ -43,18 +34,17 @@ app.get("/show", function(req, res)
 		{
 			res.render("show", {infos: quotes})
 		}
-	})
+	}).sort({like: -1});
 })
 app.post('/quotes', function(req, res)
 {
-	// console.log("Post data" + req.body);
 	if(req.body.name == "" || req.body.quote == "")
 	{
 		res.render("index", {err_msg: "You can't add with empty quote or name!!"});
 	}
 	else
 	{
-		var user = new Quote({name: req.body.name, quote: req.body.quote});
+		var user = new Quote({name: req.body.name, quote: req.body.quote, like: 0});
 		user.save(function(err)
 		{
 			if(err)
@@ -68,6 +58,16 @@ app.post('/quotes', function(req, res)
 			}
 		})
 	}
+
+})
+
+app.post("/like", function(req, res)
+{
+	Quote.findByIdAndUpdate(req.body.id, { $inc: { like: 1 }}, function (err, tank) 
+	{
+	  if (err) return handleError(err);
+	  res.redirect("show");
+	});
 
 })
 
